@@ -16,12 +16,12 @@ var Settings = function (url) {
     };
 };
 
-var Drone = function (id, location) {
+var Drone = function (id, location, brand, procespower, storage) {
     this._id = id;
     this.location = location;
-    this.brand = "default";
-    this.procespower = "default";
-    this.storage = "default";
+    this.brand = brand;
+    this.procespower = procespower;
+    this.storage = storage;
 };
 
 var Device = function (id, mac, datetime, rssi, drone) {
@@ -56,7 +56,7 @@ request(dronesSettings, function (error, response, dronesString) {
         var droneSettings = new Settings("/drones/" + drone.id + "?format=json");
         request(droneSettings, function (error, response, droneString) {
             var drone = JSON.parse(droneString);
-            dal.insertDrone(new Drone(drone.id, drone.location));
+            dal.insertDrone(new Drone(drone.id, drone.location, "testBrand", "defaultMhZ", "defaultMB"));
         });
         var filesSettings = new Settings("/files?drone_id.is=" + drone.id + "&format=json&date_loaded.greaterOrEqual=2016-12-10T00:00:00");
         request(filesSettings, function (error, response, filesString) {
@@ -64,12 +64,6 @@ request(dronesSettings, function (error, response, dronesString) {
             //console.log(filesString);
             //console.log("=================================================================");
             files.forEach(function (file) {
-                var fileSettings = new Settings("/files/" + file.id + "?format=json");
-                request(fileSettings, function (error, response, fileString) {
-                    var file = JSON.parse(fileString);
-                    //console.log(fileString);
-                    //console.log("=================================================================");
-                });
                 var contentsSettings = new Settings("/files/" + file.id + "/contents?format=json");
                 request(contentsSettings, function (error, response, contentsString) {
                     var contents = JSON.parse(contentsString);
