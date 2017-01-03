@@ -16,10 +16,12 @@ var Settings = function (url) {
     };
 };
 
-var Drone = function (id, name, mac) {
+var Drone = function (id, location) {
     this._id = id;
-    this.name = name;
-    this.mac = mac;
+    this.location = location;
+    this.brand = "default";
+    this.procespower = "default";
+    this.storage = "default";
 };
 
 var Device = function (id, mac, datetime, rssi, drone) {
@@ -43,7 +45,7 @@ request(dronesSettings, function (error, response, dronesString) {
         var droneSettings = new Settings("/drones/" + drone.id + "?format=json");
         request(droneSettings, function (error, response, droneString) {
             var drone = JSON.parse(droneString);
-            dal.insertDrone(new Drone(drone.id, drone.name, drone.mac_address));
+            dal.insertDrone(new Drone(drone.id, drone.location));
         });
         var filesSettings = new Settings("/files?drone_id.is=" + drone.id + "&format=json&date_loaded.greaterOrEqual=2016-12-10T00:00:00");
         request(filesSettings, function (error, response, filesString) {
