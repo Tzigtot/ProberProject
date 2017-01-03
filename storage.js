@@ -45,7 +45,24 @@ var dal = {
                 db.close();
             });
         });
+    },
+        clearBrand: function (call) {
+        this.connect(null, function (db) {
+            db.collection('brands').drop(function (err, result) {
+                //callback(result);
+                db.close();
+            });
+        });
+    },
+    insertBrand: function (content, callback) {
+        this.connect(null, function (db) {
+            db.collection('brands').insert(content, function (err, result) {
+                //callback(result);
+                db.close();
+            });
+        });
     }
+    
 };
 
 module.exports = dal;

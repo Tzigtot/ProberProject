@@ -32,13 +32,24 @@ var Device = function (id, mac, datetime, rssi, drone) {
     this.drone = drone;
 };
 
+var Brand = function (id, name, email, phone, contact, drones) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.phone = phone;
+    this.contact = contact;
+    this.drones = drones;
+};
+
 var dronesSettings = new Settings("/drones?format=json");
 
 dal.clearDrone();
 dal.clearDevice();
+dal.clearBrand();
 
 request(dronesSettings, function (error, response, dronesString) {
     var drones = JSON.parse(dronesString);
+    dal.insertBrand(new Brand("01", "testBrand", "friendlySalesman@testbrand.com", "015514674", "Mr. Friend", drones));
     //console.log(drones);
     //console.log("***************************************************************************");
     drones.forEach(function (drone) {
