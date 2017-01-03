@@ -22,18 +22,18 @@ var Drone = function (id, name, mac) {
     this.mac = mac;
 };
 
-
-var Content = function (id, mac, datetime, rssi) {
+var Device = function (id, mac, datetime, rssi, drone) {
     this.id = id;
     this.mac = mac;
     this.datetime = datetime;
     this.rssi = rssi;
+    this.drone = drone;
 };
 
 var dronesSettings = new Settings("/drones?format=json");
 
 dal.clearDrone();
-dal.clearContent();
+dal.clearDevice();
 
 request(dronesSettings, function (error, response, dronesString) {
     var drones = JSON.parse(dronesString);
@@ -66,7 +66,7 @@ request(dronesSettings, function (error, response, dronesString) {
                         var contentSettings = new Settings("/files/" + file.id + "/contents/" + content.id + "?format=json");
                         request(contentSettings, function (error, response, contentString) {
                             var content = JSON.parse(contentString);
-                            dal.insertContent(new Content(content.id, content.mac_address, content.datetime, content.rssi));
+                            dal.insertDevice(new Device(content.id, content.mac_address, content.datetime, content.rssi, drone.id));
                             //console.log(contentString);
                             //console.log("=================================================================");
                         });

@@ -30,17 +30,17 @@ var dal = {
             });
         });
     },
-    clearContent: function (call) {
+    clearDevice: function (call) {
         this.connect(null, function (db) {
-            db.collection('content').drop(function (err, result) {
+            db.collection('devices').drop(function (err, result) {
                 //callback(result);
                 db.close();
             });
         });
     },
-    insertContent: function (content, callback) {
+    insertDevice: function (content, callback) {
         this.connect(null, function (db) {
-            db.collection('content').insert(content, function (err, result) {
+            db.collection('devices').insert(content, function (err, result) {
                 //callback(result);
                 db.close();
             });
