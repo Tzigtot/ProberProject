@@ -30,22 +30,6 @@ var dal = {
             });
         });
     },
-    clearFile: function (call) {
-        this.connect(null, function (db) {
-            db.collection('files').drop(function (err, result) {
-                //callback(result);
-                db.close();
-            });
-        });
-    },
-    insertFile: function (file, callback) {
-        this.connect(null, function (db) {
-            db.collection('files').insert(file, function (err, result) {
-                //callback(result);
-                db.close();
-            });
-        });
-    },
     clearContent: function (call) {
         this.connect(null, function (db) {
             db.collection('content').drop(function (err, result) {
