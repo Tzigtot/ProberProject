@@ -46,7 +46,7 @@ var dal = {
             });
         });
     },
-        clearBrand: function (call) {
+    clearBrand: function (call) {
         this.connect(null, function (db) {
             db.collection('brands').drop(function (err, result) {
                 //callback(result);
@@ -61,8 +61,24 @@ var dal = {
                 db.close();
             });
         });
+    },
+    clearLecturer: function (call) {
+        this.connect(null, function (db) {
+            db.collection('lecturers').drop(function (err, result) {
+                //callback(result);
+                db.close();
+            });
+        });
+    },
+    insertLecturer: function (content, callback) {
+        this.connect(null, function (db) {
+            db.collection('lecturers').insert(content, function (err, result) {
+                //callback(result);
+                db.close();
+            });
+        });
     }
-    
+
 };
 
 module.exports = dal;
