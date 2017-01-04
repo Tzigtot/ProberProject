@@ -41,11 +41,12 @@ var Brand = function (id, name, email, phone, contact, drones) {
     this.drones = drones;
 };
 
-var Lecturer = function (id, name, email, phone, mac_address, location) {
+var Lecturer = function (id, name, email, phone, course, mac_address, location) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.phone = phone;
+    this.course = course;
     this.mac_address = mac_address;
     this.location = location;
 };
@@ -60,7 +61,7 @@ dal.clearLecturer();
 request(dronesSettings, function (error, response, dronesString) {
     var drones = JSON.parse(dronesString);
     dal.insertBrand(new Brand("01", "testBrand", "friendlySalesman@testbrand.com", "015514674", "Mr. Friend", drones));
-    dal.insertLecturer(new Lecturer("01", "testLecturer", "testLecturer@thomasmore.com", "015517446", "61-72-A7-A3-5A-CB", "testLocation"));
+    dal.insertLecturer(new Lecturer("01", "testLecturer", "testLecturer@thomasmore.com", "015517446", "Mathematics 101", "61-72-A7-A3-5A-CB", "testLocation"));
     //console.log(drones);
     //console.log("***************************************************************************");
     drones.forEach(function (drone) {
