@@ -41,7 +41,7 @@ var Brand = function (id, name, email, phone, contact, drones) {
     this.drones = drones;
 };
 
-var Lecturerer = function (id, name, email, phone, mac_address, location) {
+var Lecturer = function (id, name, email, phone, mac_address, location) {
     this.id = id;
     this.name = name;
     this.email = email;
